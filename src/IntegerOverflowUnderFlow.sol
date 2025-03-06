@@ -4,7 +4,7 @@ pragma solidity ^0.7.0;
 contract Susu {
     address[] public members;
     uint256 public contributionAmount;
-    uint256 public currentRound; 
+    uint256 public currentRound;
     mapping(address => uint256) public balances;
     uint256 public totalPool;
 
@@ -40,7 +40,7 @@ contract Susu {
         balances[msg.sender] = 0;
         totalPool -= payout; // Vulnerable to underflow if manipulated
 
-        (bool sent, ) = recipient.call{value: payout}("");
+        (bool sent,) = recipient.call{value: payout}("");
         require(sent, "Payout Failed");
 
         currentRound++; // Overflow risk remains
